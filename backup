@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ssh-keyscan ${SERVER} >> ~/.ssh/known_hosts
+
+duplicity --allow-source-mismatch --full-if-older-than=21D --no-encryption --archive-dir=/cache --name=${NAME} /data par2+sftp://${USERNAME}:${PASSWORD}@${SERVER}:${PORT}/${NAME}
