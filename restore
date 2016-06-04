@@ -1,0 +1,3 @@
+#!/bin/bash
+
+duplicity --no-encryption --archive-dir=/cache --name=${NAME} restore par2+sftp://${USERNAME}:${PASSWORD}@${SERVER}:${PORT}/${NAME} /restore/${NAME}

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ssh-keyscan ${SERVER} >> ~/.ssh/known_hosts
+
+/bin/bash -c "$@"

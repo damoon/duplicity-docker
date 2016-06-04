@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# trust remote server
-ssh-keyscan ${SERVER} >> ~/.ssh/known_hosts
-
 # create new backup
 duplicity --no-encryption --archive-dir=/cache --name=${NAME} --full-if-older-than=${FULL_IF_OLDER_THAN} --allow-source-mismatch /data par2+sftp://${USERNAME}:${PASSWORD}@${SERVER}:${PORT}/${NAME}
 
