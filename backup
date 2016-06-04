@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# trust remote server
 ssh-keyscan ${SERVER} >> ~/.ssh/known_hosts
 
-duplicity --allow-source-mismatch --full-if-older-than=21D --no-encryption --archive-dir=/cache --name=${NAME} /data par2+sftp://${USERNAME}:${PASSWORD}@${SERVER}:${PORT}/${NAME}
+# create new backup
+duplicity --no-encryption --archive-dir=/cache --name=${NAME} --full-if-older-than=${FULL_IF_OLDER_THAN} --allow-source-mismatch /data par2+sftp://${USERNAME}:${PASSWORD}@${SERVER}:${PORT}/${NAME}
+
+# keep only old full
+duplicity --no-encryption --archive-dir=/cache --name=${NAME} remove-all-inc-of-but-n-full ${REMOVE_ALL_INC_OF_BUT_N_FULL}             par2+sftp://${USERNAME}:${PASSWORD}@${SERVER}:${PORT}/${NAME}
+
+# remove very old full backups
+duplicity --no-encryption --archive-dir=/cache --name=${NAME} remove-all-but-n-full        ${REMOVE_ALL_BUT_N_FULL}                    par2+sftp://${USERNAME}:${PASSWORD}@${SERVER}:${PORT}/${NAME}
